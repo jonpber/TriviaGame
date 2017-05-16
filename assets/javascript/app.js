@@ -146,7 +146,6 @@ function countdownTimer(){
 	}
 
 	else {
-		console.log ("it's done");
 		timesUpRound();
 
 	}
