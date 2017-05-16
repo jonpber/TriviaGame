@@ -1,0 +1,10 @@
+.question {
+	text-align: center;
+	color: red;
+	font-size: 25px;
+}
+
+.option {
+	text-align: center;
+	color: blue;
+}
