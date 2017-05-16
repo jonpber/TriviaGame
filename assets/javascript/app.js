@@ -1,12 +1,17 @@
-var baseRoundLength = 5;
+var baseRoundLength = 30;
 var roundLength = baseRoundLength;
 var $timerText = $(".timer");
 var $questionSlot = $(".questionSlot");
 var $optionSlot = $(".optionSlot");
+var roundNum = 0;
+var correctNum = 0;
+var wrongNum = 0;
+var click = true;
+var clock;
 
 var qBox = {
 	"q1": {
-		"qText": "Which of these is not a Super Mario Character?",
+		"qText": "Who of the following is not a Super Mario Character?",
 		"a1": "Mario",
 		"a2": "Fredo",
 		"a3": "Luigi",
@@ -15,7 +20,7 @@ var qBox = {
 	},
 
 	"q2": {
-		"qText": "Which of these is not a Quentin Tarantino film?",
+		"qText": "Which of the following is not a Quentin Tarantino film?",
 		"a1": "Reservoir Wolves",
 		"a2": "Jackie Brown",
 		"a3": "Grindhouse",
@@ -24,12 +29,12 @@ var qBox = {
 	},
 
 	"q3": {
-		"qText": "Test Q?",
-		"a1": "B",
-		"a2": "E",
-		"a3": "F",
-		"a4": "G",
-		"rightA": "B",
+		"qText": "Which of the following is a city in Chile?",
+		"a1": "San Jose",
+		"a2": "Curica",
+		"a3": "Pachungi",
+		"a4": "Pichilemu",
+		"rightA": "Pichilemu",
 	}
 }
 
@@ -52,29 +57,39 @@ function shuffleQs(){
 
 function startGame() {
 	shuffleQs();
-	newRound(qBox[gameQPool[0]]);
+	newRound(qBox[gameQPool[roundNum]]);
 }
 
-
-
 $($optionSlot).on("click", ".option", function(){
+	clearInterval(clock);
 	if ($(this).hasClass("wrongChoice")){
 		$(".wrongChoice").css("color", "red");
+		wrongNum += 1;
 	}
 
+	else if ($(this).hasClass("rightChoice")){
+		$(".rightChoice").css("color", "green");
+		correctNum += 1;
+		$optionSlot.prepend("Correct!");
+	}
+	roundNum += 1;
+	setTimeout(newRound, 5000);
 });
 
-function newRound(question){
+function newRound(){
+	resetTimer();
+	$optionSlot.empty();
+	$questionSlot.empty();
 	var qDiv = $("<div>");
-	qDiv.text(question.qText);
+	qDiv.text(qBox[gameQPool[roundNum]].qText);
 	qDiv.addClass("question");
 	qDiv.appendTo($questionSlot);
 
 	for (var i = 1; i < 5; i++){
 		var oDiv = $("<div>");
-		oDiv.text(question["a" + i]);
+		oDiv.text(qBox[gameQPool[roundNum]]["a" + i]);
 		oDiv.addClass("option");
-		if(question["a" + i] !== question.rightA){
+		if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
 			oDiv.addClass("wrongChoice");
 		}
 		else {
@@ -82,6 +97,7 @@ function newRound(question){
 		}
 		oDiv.appendTo($optionSlot);
 	}
+	clock = setInterval(countdownTimer, 1000);
 }
 
 function resetTimer(){
@@ -105,8 +121,5 @@ function countdownTimer(){
 function timesUpRound(){
 	clearInterval(clock);
 }
-
-resetTimer();
-var clock = setInterval(countdownTimer, 1000);
 
 startGame();
