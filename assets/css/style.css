@@ -1,15 +1,36 @@
+body {
+	background-color: #799b6c;
+}
+
 .question {
-	text-align: center;
 	color: red;
 	font-size: 25px;
 }
 
 .option {
-	text-align: center;
 	color: blue;
+	border: 2px solid black;
+	margin: 5px 0;
+	padding: 15px 0;
+	background-color: white;
+}
+
+.hoverOption:hover {
+	background-color: grey;
 }
 
 .rightWrongText {
-	text-align: center;
 	font-size: 20px;
+}
+
+.container {
+	margin-top: 30px;
+}
+
+h1 {
+	font-size: 30px;
+}
+
+.spacing {
+	margin: 15px 0;
 }

@@ -61,19 +61,20 @@ function startGame() {
 
 $($optionSlot).on("click", ".option", function(){
 	if (click){
+		$(".option").removeClass("hoverOption");
 		clearInterval(clock);
 		if ($(this).hasClass("wrongChoice")){
 			$(".wrongChoice").css("color", "red");
 			wrongNum += 1;
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText").text("Incorrect").prependTo($optionSlot);
+			textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Incorrect").prependTo($optionSlot);
 		}
 
 		else if ($(this).hasClass("rightChoice")){
 			$(".rightChoice").css("color", "green");
 			correctNum += 1;
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText").text("Correct").prependTo($optionSlot);
+			textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct").prependTo($optionSlot);
 		}
 		roundNum += 1;
 		click = false;
@@ -82,26 +83,40 @@ $($optionSlot).on("click", ".option", function(){
 });
 
 function newRound(){
-	click = true;
-	resetTimer();
 	$optionSlot.empty();
 	$questionSlot.empty();
-	var qDiv = $("<div>");
-	qDiv.text(qBox[gameQPool[roundNum]].qText).addClass("question").appendTo($questionSlot);
 
-	for (var i = 1; i < 5; i++){
-		var oDiv = $("<div>");
-		oDiv.text(qBox[gameQPool[roundNum]]["a" + i]);
-		oDiv.addClass("option");
-		if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
-			oDiv.addClass("wrongChoice");
+	if (roundNum < gameQPool.length){
+		click = true;
+		resetTimer();
+
+		var qDiv = $("<div>");
+		qDiv.text(qBox[gameQPool[roundNum]].qText).addClass("question col-md-12 text-center spacing").appendTo($questionSlot);
+
+		for (var i = 1; i < 5; i++){
+			var oDiv = $("<div>");
+			oDiv.text(qBox[gameQPool[roundNum]]["a" + i]);
+			oDiv.addClass("option col-xs-12 col-md-6 text-center hoverOption");
+			if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
+				oDiv.addClass("wrongChoice");
+			}
+			else {
+				oDiv.addClass("rightChoice");
+			}
+			oDiv.appendTo($optionSlot);
 		}
-		else {
-			oDiv.addClass("rightChoice");
-		}
-		oDiv.appendTo($optionSlot);
+		clock = setInterval(countdownTimer, 1000);
 	}
-	clock = setInterval(countdownTimer, 1000);
+	else {
+		var textDiv = $("<div>");
+		textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Game over").appendTo($optionSlot);
+
+		textDiv1 = $("<div>");
+		textDiv1.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct: " + correctNum).appendTo($optionSlot);
+
+		textDiv2 = $("<div>");
+		textDiv2.addClass("rightWrongText col-xs-12 text-center spacing").text("Wrong: " + wrongNum).appendTo($optionSlot);
+	}
 }
 
 function resetTimer(){
@@ -129,7 +144,7 @@ function timesUpRound(){
 	setTimeout(newRound, 5000);	
 	$(".rightChoice").css("color", "green");
 	var textDiv = $("<div>");
-	textDiv.addClass("rightWrongText").text("Out of time").prependTo($optionSlot);
+	textDiv.addClass("rightWrongText col-xs-12 text-center").text("Out of time").prependTo($optionSlot);
 
 
 
