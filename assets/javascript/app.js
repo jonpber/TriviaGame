@@ -3,6 +3,7 @@ var roundLength = baseRoundLength;
 var $timerText = $(".timer");
 var $questionSlot = $(".questionSlot");
 var $optionSlot = $(".optionSlot");
+var $timer = $(".timerDiv");
 var roundNum = 0;
 var correctNum = 0;
 var wrongNum = 0;
@@ -55,6 +56,11 @@ function shuffleQs(){
 }
 
 function startGame() {
+	correctNum = 0;
+	wrongNum = 0;
+	roundNum = 0;
+	click = true;
+	$timer.show();
 	shuffleQs();
 	newRound(qBox[gameQPool[roundNum]]);
 }
@@ -80,6 +86,10 @@ $($optionSlot).on("click", ".option", function(){
 		click = false;
 		setTimeout(newRound, 5000);
 	}
+});
+
+$(document).on("click", "button", function(){
+	startGame();
 });
 
 function newRound(){
@@ -108,6 +118,8 @@ function newRound(){
 		clock = setInterval(countdownTimer, 1000);
 	}
 	else {
+		$timer.hide();
+
 		var textDiv = $("<div>");
 		textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Game over").appendTo($optionSlot);
 
@@ -116,6 +128,9 @@ function newRound(){
 
 		textDiv2 = $("<div>");
 		textDiv2.addClass("rightWrongText col-xs-12 text-center spacing").text("Wrong: " + wrongNum).appendTo($optionSlot);
+
+		restartButton = $("<button>");
+		restartButton.addClass("text-center").text("Restart").appendTo($optionSlot);
 	}
 }
 
@@ -149,5 +164,3 @@ function timesUpRound(){
 
 
 }
-
-startGame();

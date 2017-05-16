@@ -34,3 +34,7 @@ h1 {
 .spacing {
 	margin: 15px 0;
 }
+
+.timerDiv {
+	display: none;
+}
