@@ -52,7 +52,6 @@ function shuffleQs(){
 
 		gameQPool[randomIndex] = tempValue;
 	}
-	console.log (gameQPool);
 }
 
 function startGame() {
@@ -61,29 +60,34 @@ function startGame() {
 }
 
 $($optionSlot).on("click", ".option", function(){
-	clearInterval(clock);
-	if ($(this).hasClass("wrongChoice")){
-		$(".wrongChoice").css("color", "red");
-		wrongNum += 1;
-	}
+	if (click){
+		clearInterval(clock);
+		if ($(this).hasClass("wrongChoice")){
+			$(".wrongChoice").css("color", "red");
+			wrongNum += 1;
+			var textDiv = $("<div>");
+			textDiv.addClass("rightWrongText").text("Incorrect").prependTo($optionSlot);
+		}
 
-	else if ($(this).hasClass("rightChoice")){
-		$(".rightChoice").css("color", "green");
-		correctNum += 1;
-		$optionSlot.prepend("Correct!");
+		else if ($(this).hasClass("rightChoice")){
+			$(".rightChoice").css("color", "green");
+			correctNum += 1;
+			var textDiv = $("<div>");
+			textDiv.addClass("rightWrongText").text("Correct").prependTo($optionSlot);
+		}
+		roundNum += 1;
+		click = false;
+		setTimeout(newRound, 5000);
 	}
-	roundNum += 1;
-	setTimeout(newRound, 5000);
 });
 
 function newRound(){
+	click = true;
 	resetTimer();
 	$optionSlot.empty();
 	$questionSlot.empty();
 	var qDiv = $("<div>");
-	qDiv.text(qBox[gameQPool[roundNum]].qText);
-	qDiv.addClass("question");
-	qDiv.appendTo($questionSlot);
+	qDiv.text(qBox[gameQPool[roundNum]].qText).addClass("question").appendTo($questionSlot);
 
 	for (var i = 1; i < 5; i++){
 		var oDiv = $("<div>");
@@ -120,6 +124,15 @@ function countdownTimer(){
 
 function timesUpRound(){
 	clearInterval(clock);
+	roundNum += 1;
+	click = false;
+	setTimeout(newRound, 5000);	
+	$(".rightChoice").css("color", "green");
+	var textDiv = $("<div>");
+	textDiv.addClass("rightWrongText").text("Out of time").prependTo($optionSlot);
+
+
+
 }
 
 startGame();
