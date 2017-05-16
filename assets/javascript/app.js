@@ -4,7 +4,7 @@ var $timerText = $(".timer");
 var $questionSlot = $(".questionSlot");
 var $optionSlot = $(".optionSlot");
 
-var qPool = {
+var qBox = {
 	"q1": {
 		"qText": "Which of these is not a Super Mario Character?",
 		"a1": "Mario",
@@ -12,8 +12,50 @@ var qPool = {
 		"a3": "Luigi",
 		"a4": "Waluigi",
 		"rightA": "Fredo",
+	},
+
+	"q2": {
+		"qText": "Which of these is not a Quentin Tarantino film?",
+		"a1": "Reservoir Wolves",
+		"a2": "Jackie Brown",
+		"a3": "Grindhouse",
+		"a4": "Inglorious Basterds",
+		"rightA": "Reservoir Wolves",
+	},
+
+	"q3": {
+		"qText": "Test Q?",
+		"a1": "B",
+		"a2": "E",
+		"a3": "F",
+		"a4": "G",
+		"rightA": "B",
 	}
 }
+
+var gameQPool = Object.keys(qBox);
+
+function shuffleQs(){
+	var currentIndex = gameQPool.length, tempValue, randomIndex;
+
+	while (currentIndex !== 0){
+		randomIndex = Math.floor(Math.random() * currentIndex);
+		currentIndex -= 1;
+
+		tempValue = gameQPool[currentIndex];
+		gameQPool[currentIndex] = gameQPool[randomIndex];
+
+		gameQPool[randomIndex] = tempValue;
+	}
+	console.log (gameQPool);
+}
+
+function startGame() {
+	shuffleQs();
+	newRound(qBox[gameQPool[0]]);
+}
+
+
 
 $($optionSlot).on("click", ".option", function(){
 	if ($(this).hasClass("wrongChoice")){
@@ -42,15 +84,12 @@ function newRound(question){
 	}
 }
 
-newRound(qPool.q1);
-
-
-function resetTimer (){
+function resetTimer(){
 	roundLength = baseRoundLength;
 	$timerText.text(roundLength);
 }
 
-function countdownTimer (){
+function countdownTimer(){
 	if (roundLength > 0){
 		roundLength -= 1;
 		$($timerText).text(roundLength);
@@ -69,3 +108,5 @@ function timesUpRound(){
 
 resetTimer();
 var clock = setInterval(countdownTimer, 1000);
+
+startGame();
