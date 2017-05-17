@@ -73,14 +73,14 @@ $($optionSlot).on("click", ".option", function(){
 			$(".wrongChoice").css("color", "red");
 			wrongNum += 1;
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Incorrect").prependTo($optionSlot);
+			textDiv.addClass("rightWrongText col-xs-12 text-center spacing backing").text("Incorrect").prependTo($optionSlot);
 		}
 
 		else if ($(this).hasClass("rightChoice")){
 			$(".rightChoice").css("color", "green");
 			correctNum += 1;
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct").prependTo($optionSlot);
+			textDiv.addClass("rightWrongText col-xs-12 text-center spacing backing").text("Correct").prependTo($optionSlot);
 		}
 		roundNum += 1;
 		click = false;
@@ -101,7 +101,7 @@ function newRound(){
 		resetTimer();
 
 		var qDiv = $("<div>");
-		qDiv.text(qBox[gameQPool[roundNum]].qText).addClass("question col-md-12 text-center spacing").appendTo($questionSlot);
+		qDiv.text(qBox[gameQPool[roundNum]].qText).addClass("question col-md-12 text-center spacing backing").appendTo($questionSlot);
 
 		for (var i = 1; i < 5; i++){
 			var oDiv = $("<div>");
@@ -120,14 +120,17 @@ function newRound(){
 	else {
 		$timer.hide();
 
+		var $endBlock = $("<div>");
+		$endBlock.addClass("backing").appendTo($optionSlot);
+
 		var textDiv = $("<div>");
-		textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Game over").appendTo($optionSlot);
+		textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Game over").appendTo($endBlock);
 
 		textDiv1 = $("<div>");
-		textDiv1.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct: " + correctNum).appendTo($optionSlot);
+		textDiv1.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct: " + correctNum).appendTo($endBlock);
 
 		textDiv2 = $("<div>");
-		textDiv2.addClass("rightWrongText col-xs-12 text-center spacing").text("Wrong: " + wrongNum).appendTo($optionSlot);
+		textDiv2.addClass("rightWrongText col-xs-12 text-center spacing").text("Wrong: " + wrongNum).appendTo($endBlock);
 
 		restartButton = $("<button>");
 		restartButton.addClass("text-center").text("Restart").appendTo($optionSlot);
@@ -153,6 +156,7 @@ function countdownTimer(){
 
 function timesUpRound(){
 	clearInterval(clock);
+	$(".option").removeClass("hoverOption");
 	roundNum += 1;
 	click = false;
 	setTimeout(newRound, 5000);	

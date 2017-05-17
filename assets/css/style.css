@@ -1,5 +1,5 @@
 body {
-	background-color: #799b6c;
+	background-image: url("../images/confetti.jpeg");
 }
 
 .question {
@@ -30,9 +30,14 @@ body {
 
 h1 {
 	font-size: 30px;
+}
+
+.backing {
 	background: wheat;
 	border: 2px solid black;
 	border-radius: 10px;
+	padding: 10px;
+	overflow: auto;
 }
 
 .spacing {
@@ -44,6 +49,14 @@ h1 {
 	border: 2px solid black;
 	padding: 10px;
 	background: wheat;
-	width: 100px;
 	border-radius: 10px;
+	margin: 15px 0;
+}
+
+button {
+	margin: 10px;
+	border-radius: 5px;
+	background: wheat;
+	border: 2px solid;
+	padding: 10px;
 }
