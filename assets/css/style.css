@@ -1,18 +1,35 @@
-body {
-	background-color: #799b6c;
+/*body {
+	background-image: url("../images/confetti.jpeg");
+}*/
+
+.bg {
+	background-repeat: no-repeat; 
+	background-attachment:fixed;
+	background-position: center 0px;
+	background-size: cover;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+	top: 0;
+}
+
+#bg1 {
+	background-color: crimson;
 }
 
 .question {
-	color: red;
+	color: #463d3d;;
 	font-size: 25px;
 }
 
 .option {
-	color: blue;
+	color: #463d3d;;
 	border: 2px solid black;
 	margin: 5px 0;
 	padding: 15px 0;
-	background-color: white;
+	background-color: #ade6ff;;
+	border-radius: 10px;
 }
 
 .hoverOption:hover {
@@ -31,10 +48,52 @@ h1 {
 	font-size: 30px;
 }
 
+.backing {
+	background: #ade6ff;;
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 10px;
+	overflow: auto;
+}
+
 .spacing {
 	margin: 15px 0;
 }
 
 .timerDiv {
 	display: none;
+	border: 2px solid black;
+	padding: 10px;
+	background: #ade6ff;;
+	border-radius: 10px;
+	margin: 15px 0;
+}
+
+button {
+	margin: 10px;
+	border-radius: 5px;
+	background: #ade6ff;;
+	border: 2px solid;
+	padding: 10px;
+}
+
+div {
+	font-family: 'Racing Sans One', cursive;
+	font-size: 30px;
+}
+
+.blockHeight {
+	height: 0;
+	margin-bottom: 10px;
+	margin-top: 0;
+}
+
+.vertAlign {
+	vertical-align: middle;
+}
+
+@media screen and (max-width: 992px){
+	.timerDiv {
+		height: auto;
+	}
 }
