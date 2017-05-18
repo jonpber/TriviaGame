@@ -20,7 +20,7 @@ $(function(){
 			"a3": "Luigi",
 			"a4": "Waluigi",
 			"rightA": "Fredo",
-			"answerPhrase": "Fredo is part of a much different family.",
+			"answerPhrase": "Fredo was part of a much, much different family.",
 			"category": "gaming"
 		},
 
@@ -31,18 +31,41 @@ $(function(){
 			"a3": "Grindhouse",
 			"a4": "Inglorious Basterds",
 			"rightA": "Reservoir Wolves",
-			"answerPhrase": "Fredo is part of a much different family.",
+			"answerPhrase": "Reservoir Dogs was the actual title.",
 			"category": "film"
 		},
 
 		"q3": {
 			"qText": "Which of the following is a city in Chile?",
-			"a1": "San Jose",
+			"a1": "San Jorge",
 			"a2": "Curica",
 			"a3": "Pachungi",
 			"a4": "Pichilemu",
 			"rightA": "Pichilemu",
+			"answerPhrase": "Pichilemu is the only real city in Chile.",
 			"category": "geography"
+		},
+
+		"q4": {
+			"qText": "Which of the following is not an album released by Pearl Jam?",
+			"a1": "Ten",
+			"a2": "No Code",
+			"a3": "Nevermind",
+			"a4": "Binaural",
+			"rightA": "Nevermind",
+			"answerPhrase": "Nevermind was released by Nirvana in 1991.",
+			"category": "music"
+		},
+
+		"q5": {
+			"qText": "How many FIFA World Cups has Argentina won?",
+			"a1": "1",
+			"a2": "2",
+			"a3": "3",
+			"a4": "4",
+			"rightA": "2",
+			"answerPhrase": "Argentina won the World Cup in 1978 and 1986.",
+			"category": "sports"
 		}
 
 	}
@@ -90,14 +113,14 @@ $(function(){
 			if ($(this).hasClass("wrongChoice")){
 				$(".wrongChoice").css("color", "red");
 				wrongNum += 1;
-				$("#qDiv").text("Incorrect.");
+				$("#qDiv").text("Incorrect. " + $(this).attr("data-answerPhrase"));
 			}
 
 			else if ($(this).hasClass("rightChoice")){
 				$(".rightChoice").css("color", "green");
 				correctNum += 1;
 				var textDiv = $("<div>");
-				$("#qDiv").text("Correct.");
+				$("#qDiv").text("Correct. " + $(this).attr("data-answerPhrase"));
 			}
 			roundNum += 1;
 			click = false;
@@ -123,8 +146,10 @@ $(function(){
 
 			for (var i = 1; i < 5; i++){
 				var oDiv = $("<div>");
-				oDiv.text(qBox[gameQPool[roundNum]]["a" + i]);
-				oDiv.addClass("option col-xs-12 col-md-6 text-center hoverOption");
+				oDiv.text(qBox[gameQPool[roundNum]]["a" + i])
+					.addClass("option col-xs-12 col-md-6 text-center hoverOption")
+					.attr("data-answerPhrase", qBox[gameQPool[roundNum]]["answerPhrase"])
+
 				if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
 					oDiv.addClass("wrongChoice");
 				}
@@ -134,9 +159,12 @@ $(function(){
 				oDiv.appendTo($optionSlot);
 			}
 			clock = setInterval(countdownTimer, 1000);
+			$(".blockHeight").css("height", "100px");
 		}
 		else {
+			backgroundFade("confetti");
 			$timer.hide();
+			$(".blockHeight").css("height", "0");
 
 			var $endBlock = $("<div>");
 			$endBlock.addClass("backing").appendTo($optionSlot);
