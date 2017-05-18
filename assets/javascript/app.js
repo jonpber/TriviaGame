@@ -11,6 +11,8 @@ $(function(){
 	var wrongNum = 0;
 	var click = true;
 	var clock;
+	var rightSound = new Audio ("assets/sounds/success.wav");
+	var wrongSound = new Audio ("assets/sounds/fail.wav");
 
 	var qBox = {
 		"q1": {
@@ -20,7 +22,7 @@ $(function(){
 			"a3": "Luigi",
 			"a4": "Waluigi",
 			"rightA": "Fredo",
-			"answerPhrase": "Fredo was part of a much, much different family.",
+			"answerPhrase": "Fredo was part of a much more violent family.",
 			"category": "gaming"
 		},
 
@@ -66,7 +68,129 @@ $(function(){
 			"rightA": "2",
 			"answerPhrase": "Argentina won the World Cup in 1978 and 1986.",
 			"category": "sports"
+		},
+
+		"q6": {
+			"qText": "Which Emperor was famously blamed with burning Rome?",
+			"a1": "Caligula",
+			"a2": "Nero",
+			"a3": "Commodus",
+			"a4": "Augustus",
+			"rightA": "Nero",
+			"answerPhrase": "Nero is blamed for burning Rome in order to rebuild it to his liking.",
+			"category": "history"
+		},
+
+		"q7": {
+			"qText": "What is the highest-selling video game of all time?",
+			"a1": "Tetris",
+			"a2": "Minecraft",
+			"a3": "Wii Sports",
+			"a4": "Grand Theft Auto V",
+			"rightA": "Tetris",
+			"answerPhrase": "At over 495 million copies sold, Tetris is the highest-selling game of all time.",
+			"category": "gaming"
+		},
+
+		"q8": {
+			"qText": "Who directed Mad Max: Fury Road?",
+			"a1": "Frank Miller",
+			"a2": "John Carpenter",
+			"a3": "Josh Trank",
+			"a4": "George Miller",
+			"rightA": "George Miller",
+			"answerPhrase": "George Miller directed every Mad Max film (and Happy Feet).",
+			"category": "film"
+		},
+
+		"q9": {
+			"qText": "Which Beatle member wrote the song 'Here Comes the Sun'?",
+			"a1": "Paul McCartney",
+			"a2": "John Lennon",
+			"a3": "George Harrison",
+			"a4": "Ringo Starr",
+			"rightA": "George Harrison",
+			"answerPhrase": "George Harrison wrote 'Here Comes the Sun' at Eric Clapton's country house.",
+			"category": "music"
+		},
+
+		"q10": {
+			"qText": "In which century did the Italian Renaissance begin?",
+			"a1": "13th Century",
+			"a2": "14th Century",
+			"a3": "15th Century",
+			"a4": "16th Century",
+			"rightA": "14th Century",
+			"answerPhrase": "The Italian Renaissance first began in the 14th century, reaching its height in the 15th century.",
+			"category": "history"
+		},
+
+		"q11": {
+			"qText": "Who currently holds the record for fastest man in the world?",
+			"a1": "Tyson Gay",
+			"a2": "Asafa Powell",
+			"a3": "Maurice Greene",
+			"a4": "Usain Bolt",
+			"rightA": "Usain Bolt",
+			"answerPhrase": "Usain Bolt currently holds the record for 100m and 200m sprints, making him the fastest man in the world.",
+			"category": "sports"
+		},
+
+		"q12": {
+			"qText": "What is the capital of Madagascar?",
+			"a1": "Antananarivo",
+			"a2": "Pretoria",
+			"a3": "Windhoek",
+			"a4": "Luanda",
+			"rightA": "Antananarivo",
+			"answerPhrase": "Antananarivo is Madagascar's capital.",
+			"category": "geography"
+		},
+
+		"q13": {
+			"qText": "How many viewers watched M.A.S.H.'s series finale?",
+			"a1": "80 million",
+			"a2": "100 million",
+			"a3": "125 million",
+			"a4": "150 million",
+			"rightA": "125 million",
+			"answerPhrase": "M.A.S.H's series finale garnered 125 million viewers, making it the most watched series finale ever.",
+			"category": "television"
+		},
+
+		"q14": {
+			"qText": "Who was not a member of the Seinfeld cast?",
+			"a1": "Cosmo Kramer",
+			"a2": "George Costanza",
+			"a3": "Elaine Benes",
+			"a4": "Ross Geller",
+			"rightA": "Ross Geller",
+			"answerPhrase": "Ross Geller was a member of the tv show Friends played by David Schwimmer.",
+			"category": "television"
+		},
+
+		"q15": {
+			"qText": "What kind of animal was the video game character Sonic?",
+			"a1": "Echidna",
+			"a2": "Hedgehog",
+			"a3": "Squirrel",
+			"a4": "Turtle",
+			"rightA": "Hedgehog",
+			"answerPhrase": "Sonic the Hedgehog is Sega's mascot character.",
+			"category": "gaming"
+		},
+
+		"q16": {
+			"qText": "How many Academy Awards did the movie Titanic win?",
+			"a1": "6",
+			"a2": "8",
+			"a3": "11",
+			"a4": "13",
+			"rightA": "11",
+			"answerPhrase": "Titanic tied Ben-Hur for most Academy Awards won with 11 wins.",
+			"category": "film"
 		}
+
 
 	}
 
@@ -107,24 +231,27 @@ $(function(){
 	}
 
 	$($optionSlot).on("click", ".option", function(){
+		var $this = $(this);
 		if (click){
 			$(".option").removeClass("hoverOption");
 			clearInterval(clock);
-			if ($(this).hasClass("wrongChoice")){
+			if ($this.hasClass("wrongChoice")){
+				wrongSound.play();
 				$(".wrongChoice").css("color", "red");
 				wrongNum += 1;
-				$("#qDiv").text("Incorrect. " + $(this).attr("data-answerPhrase"));
+				$("#qDiv").text("Incorrect. " + $this.attr("data-answerPhrase"));
 			}
 
-			else if ($(this).hasClass("rightChoice")){
+			else if ($this.hasClass("rightChoice")){
+				rightSound.play();
 				$(".rightChoice").css("color", "green");
 				correctNum += 1;
 				var textDiv = $("<div>");
-				$("#qDiv").text("Correct. " + $(this).attr("data-answerPhrase"));
+				$("#qDiv").text("Correct. " + $this.attr("data-answerPhrase"));
 			}
 			roundNum += 1;
 			click = false;
-			setTimeout(newRound, 5000);
+			setTimeout(newRound, 4500);
 		}
 	});
 
@@ -136,7 +263,7 @@ $(function(){
 		$optionSlot.empty();
 		$questionSlot.empty();
 
-		if (roundNum < gameQPool.length){
+		if (roundNum < 7){
 			backgroundFade(qBox[gameQPool[roundNum]]["category"]);
 			click = true;
 			resetTimer();
@@ -147,7 +274,7 @@ $(function(){
 			for (var i = 1; i < 5; i++){
 				var oDiv = $("<div>");
 				oDiv.text(qBox[gameQPool[roundNum]]["a" + i])
-					.addClass("option col-xs-12 col-md-6 text-center hoverOption")
+					.addClass("option col-xs-12 text-center hoverOption")
 					.attr("data-answerPhrase", qBox[gameQPool[roundNum]]["answerPhrase"])
 
 				if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
@@ -159,24 +286,23 @@ $(function(){
 				oDiv.appendTo($optionSlot);
 			}
 			clock = setInterval(countdownTimer, 1000);
-			$(".blockHeight").css("height", "75px");
+			// $(".blockHeight").css("height", "75px");
 		}
 		else {
 			backgroundFade("intro");
 			$timer.hide();
-			$(".blockHeight").css("height", "0");
 
 			var $endBlock = $("<div>");
 			$endBlock.addClass("backing").appendTo($optionSlot);
 
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText col-xs-12 text-center spacing").text("Game over").appendTo($endBlock);
+			textDiv.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Game over").appendTo($endBlock);
 
 			textDiv1 = $("<div>");
-			textDiv1.addClass("rightWrongText col-xs-12 text-center spacing").text("Correct: " + correctNum).appendTo($endBlock);
+			textDiv1.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Correct: " + correctNum).appendTo($endBlock);
 
 			textDiv2 = $("<div>");
-			textDiv2.addClass("rightWrongText col-xs-12 text-center spacing").text("Wrong: " + wrongNum).appendTo($endBlock);
+			textDiv2.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Wrong: " + wrongNum).appendTo($endBlock);
 
 			restartButton = $("<button>");
 			restartButton.addClass("text-center").text("Restart").appendTo($optionSlot);
@@ -205,7 +331,7 @@ $(function(){
 		$(".option").removeClass("hoverOption");
 		roundNum += 1;
 		click = false;
-		setTimeout(newRound, 5000);	
+		setTimeout(newRound, 4500);	
 		$(".rightChoice").css("color", "green");
 		$("#qDiv").text("Out of time.");
 	}
