@@ -14,7 +14,7 @@ $(function(){
 
 	var qBox = {
 		"q1": {
-			"qText": "Who of the following is not a character in the Super Mario video game series?",
+			"qText": "Who of the following is not a character in the Super Mario series?",
 			"a1": "Mario",
 			"a2": "Fredo",
 			"a3": "Luigi",
@@ -159,10 +159,10 @@ $(function(){
 				oDiv.appendTo($optionSlot);
 			}
 			clock = setInterval(countdownTimer, 1000);
-			$(".blockHeight").css("height", "100px");
+			$(".blockHeight").css("height", "75px");
 		}
 		else {
-			backgroundFade("confetti");
+			backgroundFade("intro");
 			$timer.hide();
 			$(".blockHeight").css("height", "0");
 
