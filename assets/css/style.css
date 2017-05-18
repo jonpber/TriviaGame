@@ -1,3 +1,5 @@
+
+
 .backing {
 	background: #434343;
 	color: white;
@@ -22,6 +24,13 @@
 
 #bg1 {
 	background-color: #161e26;
+}
+
+body:after{
+	display:none;
+	content: url("../images/televison.png") url("../images/music.png")
+	url("../images/film.png") url("../images/sports.png") url("../images/history.png")
+	url("../images/gaming.png") url("../images/geography.png");
 }
 
 button {
