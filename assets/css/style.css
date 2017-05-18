@@ -1,6 +1,11 @@
-/*body {
-	background-image: url("../images/confetti.jpeg");
-}*/
+.backing {
+	background: #434343;
+	color: white;
+	border: 2px solid #232323;
+	border-radius: 10px;
+	padding: 10px;
+	overflow: auto;
+}
 
 .bg {
 	background-repeat: no-repeat; 
@@ -16,85 +21,93 @@
 }
 
 #bg1 {
-	background-color: crimson;
+	background-color: #161e26;
 }
 
-.question {
-	color: #463d3d;;
-	font-size: 25px;
+button {
+	margin: 10px;
+	border-radius: 10px;
+	background: #434343;
+	color: white;
+	border: 2px solid #232323;
+	padding: 10px;
+}
+
+button:hover {
+	background: #626060;
+}
+
+.container {
+	margin-top: 30px;
+	width: 750px;
+}
+
+div {
+	font-family: 'Racing Sans One', cursive;
+	font-size: 30px;
+	letter-spacing: 1.5px;
+}
+
+
+h1 {
+	font-size: 35px;
+}
+
+
+.hoverOption:hover {
+	background-color: grey;
+}
+
+.lineSpacing {
+	font-size: 32px;
+	margin: 15px 0;
 }
 
 .option {
 	color: #463d3d;;
-	border: 2px solid black;
-	margin: 5px 0;
+	border: 2px solid #232323;
 	padding: 15px 0;
-	background-color: #ade6ff;;
+	background-color: white;
 	border-radius: 10px;
 }
 
-.hoverOption:hover {
-	background-color: grey;
+.optionSlot {
+	margin-top: 15px;
+}
+
+
+.question {
+	color: white;
+	font-size: 25px;
 }
 
 .rightWrongText {
 	font-size: 20px;
 }
 
-.container {
-	margin-top: 30px;
-}
-
-h1 {
-	font-size: 35px;
-}
-
-.backing {
-	background: #ade6ff;;
-	border: 2px solid black;
-	border-radius: 10px;
-	padding: 10px;
-	overflow: auto;
-}
-
-.spacing {
-	margin: 15px 0;
+#startButton {
+	width: 50%;
+	height: 100px;
 }
 
 .timerDiv {
 	display: none;
-	border: 2px solid black;
+	border: 2px solid #232323;
 	padding: 10px;
-	background: #ade6ff;;
+	background: #434343;
+	color: white;
 	border-radius: 10px;
 	margin: 15px 0;
-}
-
-button {
-	margin: 10px;
-	border-radius: 10px;
-	background: #ade6ff;;
-	border: 2px solid;
-	padding: 10px;
-}
-
-div {
-	font-family: 'Racing Sans One', cursive;
-	font-size: 30px;
-}
-
-.blockHeight {
-	height: 0;
-	margin-bottom: 10px;
-	margin-top: 0;
 }
 
 .vertAlign {
 	vertical-align: middle;
 }
 
-@media screen and (max-width: 992px){
-	.timerDiv {
-		height: auto;
+
+
+@media screen and (max-width: 750px){
+	.container {
+		width: 100%;
 	}
 }
