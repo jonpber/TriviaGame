@@ -196,6 +196,25 @@ $(function(){
 
 	var gameQPool = Object.keys(qBox);
 
+	function preload(arrayOfImages) {
+	    $(arrayOfImages).each(function(){
+	        $('<img/>')[0].src = this;
+	        // Alternatively you could use:
+	        // (new Image()).src = this;
+		 });
+	}
+
+// Usage:
+
+	preload([
+	    'assets/images/television.jpg', 
+	    'assets/images/music.jpg',
+		'assets/images/film.jpg', 
+		'assets/images/sports.jpg', 
+		'assets/images/history.jpg',
+		'assets/images/gaming.jpg', 
+		'assets/images/geography.jpg']);
+
 	function shuffleQs(){
 		var currentIndex = gameQPool.length, tempValue, randomIndex;
 
