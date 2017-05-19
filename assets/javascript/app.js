@@ -88,7 +88,7 @@ $(function(){
 			"a3": "Wii Sports",
 			"a4": "Grand Theft Auto V",
 			"rightA": "Tetris",
-			"answerPhrase": "At over 495 million copies sold, Tetris is the highest-selling game of all time.",
+			"answerPhrase": "At over 495 million copies sold, Tetris is the highest-selling video game of all time.",
 			"category": "gaming"
 		},
 
@@ -104,7 +104,7 @@ $(function(){
 		},
 
 		"q9": {
-			"qText": "Which Beatle member wrote the song 'Here Comes the Sun'?",
+			"qText": "Which member of The Beatles wrote the song 'Here Comes the Sun'?",
 			"a1": "Paul McCartney",
 			"a2": "John Lennon",
 			"a3": "George Harrison",
@@ -199,12 +199,8 @@ $(function(){
 	function preload(arrayOfImages) {
 	    $(arrayOfImages).each(function(){
 	        $('<img/>')[0].src = this;
-	        // Alternatively you could use:
-	        // (new Image()).src = this;
 		 });
 	}
-
-// Usage:
 
 	preload([
 	    'assets/images/television.jpg', 
@@ -258,7 +254,7 @@ $(function(){
 				wrongSound.play();
 				$(".wrongChoice").css("color", "red");
 				wrongNum += 1;
-				$("#qDiv").text("Incorrect. " + $this.attr("data-answerPhrase"));
+				$("#qDiv").text("Sorry, " + $this.attr("data-rightAnswer") + " was the correct answer.");
 			}
 
 			else if ($this.hasClass("rightChoice")){
@@ -272,10 +268,6 @@ $(function(){
 			click = false;
 			setTimeout(newRound, 4500);
 		}
-	});
-
-	$(document).on("click", "button", function(){
-		startGame();
 	});
 
 	function newRound(){
@@ -295,6 +287,7 @@ $(function(){
 				oDiv.text(qBox[gameQPool[roundNum]]["a" + i])
 					.addClass("option col-xs-12 text-center hoverOption")
 					.attr("data-answerPhrase", qBox[gameQPool[roundNum]]["answerPhrase"])
+					.attr("data-rightAnswer", qBox[gameQPool[roundNum]]["rightA"]);
 
 				if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
 					oDiv.addClass("wrongChoice");
@@ -352,6 +345,10 @@ $(function(){
 		click = false;
 		setTimeout(newRound, 4500);	
 		$(".rightChoice").css("color", "green");
-		$("#qDiv").text("Out of time.");
+		$("#qDiv").text("Out of time. " + $(".optionSlot").children().attr("data-rightAnswer") + " was the correct answer.");
 	}
+
+	$(document).on("click", "button", function(){
+		startGame();
+	});
 })
