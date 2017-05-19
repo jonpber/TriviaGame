@@ -13,6 +13,8 @@ $(function(){
 	var clock;
 	var rightSound = new Audio ("assets/sounds/success.wav");
 	var wrongSound = new Audio ("assets/sounds/fail.wav");
+	var buzzerSound = new Audio ("assets/sounds/buzzer.wav");
+	var gameLength = 7;
 
 	var qBox = {
 		"q1": {
@@ -247,6 +249,7 @@ $(function(){
 
 	$($optionSlot).on("click", ".option", function(){
 		var $this = $(this);
+		var $parent = $this.parent();
 		if (click){
 			$(".option").removeClass("hoverOption");
 			clearInterval(clock);
@@ -254,7 +257,7 @@ $(function(){
 				wrongSound.play();
 				$(".wrongChoice").css("color", "red");
 				wrongNum += 1;
-				$("#qDiv").text("Sorry, " + $this.attr("data-rightAnswer") + " was the correct answer.");
+				$("#qDiv").text("Sorry, " + $parent.attr("data-rightAnswer") + " was the correct answer.");
 			}
 
 			else if ($this.hasClass("rightChoice")){
@@ -262,7 +265,7 @@ $(function(){
 				$(".rightChoice").css("color", "green");
 				correctNum += 1;
 				var textDiv = $("<div>");
-				$("#qDiv").text("Correct. " + $this.attr("data-answerPhrase"));
+				$("#qDiv").text("Correct. " + $parent.attr("data-answerPhrase"));
 			}
 			roundNum += 1;
 			click = false;
@@ -274,7 +277,7 @@ $(function(){
 		$optionSlot.empty();
 		$questionSlot.empty();
 
-		if (roundNum < 7){
+		if (roundNum < gameLength){
 			backgroundFade(qBox[gameQPool[roundNum]]["category"]);
 			click = true;
 			resetTimer();
@@ -284,11 +287,8 @@ $(function(){
 
 			for (var i = 1; i < 5; i++){
 				var oDiv = $("<div>");
-				oDiv.text(qBox[gameQPool[roundNum]]["a" + i])
-					.addClass("option col-xs-12 text-center hoverOption")
-					.attr("data-answerPhrase", qBox[gameQPool[roundNum]]["answerPhrase"])
-					.attr("data-rightAnswer", qBox[gameQPool[roundNum]]["rightA"]);
-
+				oDiv.text(qBox[gameQPool[roundNum]]["a" + i]).addClass("option col-xs-12 text-center hoverOption")
+					
 				if(qBox[gameQPool[roundNum]]["a" + i] !== qBox[gameQPool[roundNum]].rightA){
 					oDiv.addClass("wrongChoice");
 				}
@@ -296,25 +296,49 @@ $(function(){
 					oDiv.addClass("rightChoice");
 				}
 				oDiv.appendTo($optionSlot);
+				($optionSlot).attr("data-answerPhrase", qBox[gameQPool[roundNum]]["answerPhrase"])
+					.attr("data-rightAnswer", qBox[gameQPool[roundNum]]["rightA"]);
 			}
 			clock = setInterval(countdownTimer, 1000);
-			// $(".blockHeight").css("height", "75px");
+
 		}
 		else {
 			backgroundFade("intro");
 			$timer.hide();
 
+			var endTextClass = "rightWrongText col-xs-12 text-center lineSpacing";
+
 			var $endBlock = $("<div>");
 			$endBlock.addClass("backing").appendTo($optionSlot);
 
 			var textDiv = $("<div>");
-			textDiv.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Game over").appendTo($endBlock);
+			textDiv.addClass(endTextClass).text("Game over").appendTo($endBlock);
 
-			textDiv1 = $("<div>");
-			textDiv1.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Correct: " + correctNum).appendTo($endBlock);
+			var textDiv1 = $("<div>");
+			textDiv1.addClass(endTextClass).text("Correct: " + correctNum).appendTo($endBlock);
 
-			textDiv2 = $("<div>");
-			textDiv2.addClass("rightWrongText col-xs-12 text-center lineSpacing").text("Wrong: " + wrongNum).appendTo($endBlock);
+			var textDiv2 = $("<div>");
+			textDiv2.addClass(endTextClass).text("Wrong: " + wrongNum).appendTo($endBlock);
+
+			if (correctNum >= gameLength -1){
+				$($endBlock).append("<img src='assets/images/1st.png'>");
+				
+				var textDiv3 = $("<div>");
+				textDiv3.addClass(endTextClass).text("You're a superstar!").appendTo($endBlock);
+
+			}
+
+			else if (correctNum >= gameLength -3){
+				$($endBlock).append("<img src='assets/images/2nd.png'>");
+				
+				var textDiv3 = $("<div>");
+				textDiv3.addClass(endTextClass).text("Well done.").appendTo($endBlock);
+			}
+
+			else {
+				var textDiv3 = $("<div>");
+				textDiv3.addClass(endTextClass).text("You might want to brush up on your trivia.").appendTo($endBlock);
+			}
 
 			restartButton = $("<button>");
 			restartButton.addClass("text-center").text("Restart").appendTo($optionSlot);
@@ -340,12 +364,13 @@ $(function(){
 
 	function timesUpRound(){
 		clearInterval(clock);
+		buzzerSound.play();
 		$(".option").removeClass("hoverOption");
 		roundNum += 1;
 		click = false;
 		setTimeout(newRound, 4500);	
 		$(".rightChoice").css("color", "green");
-		$("#qDiv").text("Out of time. " + $(".optionSlot").children().attr("data-rightAnswer") + " was the correct answer.");
+		$("#qDiv").text("Out of time. " + $(".optionSlot").attr("data-rightAnswer") + " was the correct answer.");
 	}
 
 	$(document).on("click", "button", function(){
