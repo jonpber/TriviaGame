@@ -11,7 +11,7 @@
 
 .bg {
 	background-repeat: no-repeat; 
-	background-attachment:fixed;
+	background-attachment: fixed;
 	background-position: center 0px;
 	background-size: cover;
 	background-image: url("../images/intro.jpg");
@@ -48,6 +48,11 @@ div {
 	font-family: 'Racing Sans One', cursive;
 	font-size: 30px;
 	letter-spacing: 1.5px;
+}
+
+.endImg {
+	width: 90%;
+	border: 2px solid black;
 }
 
 
