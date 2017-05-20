@@ -14,6 +14,11 @@ $(function(){
 	var rightSound = new Audio ("assets/sounds/success.wav");
 	var wrongSound = new Audio ("assets/sounds/fail.wav");
 	var buzzerSound = new Audio ("assets/sounds/buzzer.wav");
+	var clickSound = new Audio ("assets/sounds/click.wav");
+	var victorySound = new Audio ("assets/sounds/victory.mp3");
+	var smallVictorySound = new Audio ("assets/sounds/smallvictory.mp3");	
+	var lossSound = new Audio ("assets/sounds/lossMusic.wav");	
+
 	var gameLength = 7;
 
 	var qBox = {
@@ -322,22 +327,23 @@ $(function(){
 
 			if (correctNum >= gameLength -1){
 				$($endBlock).append("<img src='assets/images/1st.png'>");
-				
 				var textDiv3 = $("<div>");
 				textDiv3.addClass(endTextClass).text("You're a superstar!").appendTo($endBlock);
+				victorySound.play();
 
 			}
 
 			else if (correctNum >= gameLength -3){
 				$($endBlock).append("<img src='assets/images/2nd.png'>");
-				
 				var textDiv3 = $("<div>");
 				textDiv3.addClass(endTextClass).text("Well done.").appendTo($endBlock);
+				smallVictorySound.play();
 			}
 
 			else {
 				var textDiv3 = $("<div>");
 				textDiv3.addClass(endTextClass).text("You might want to brush up on your trivia.").appendTo($endBlock);
+				lossSound.play();
 			}
 
 			restartButton = $("<button>");
@@ -374,6 +380,7 @@ $(function(){
 	}
 
 	$(document).on("click", "button", function(){
+		clickSound.play();
 		startGame();
 	});
 })
