@@ -196,7 +196,31 @@ $(function(){
 			"rightA": "11",
 			"answerPhrase": "Titanic tied Ben-Hur for most Academy Awards won with 11 wins.",
 			"category": "film"
-		}
+		},
+
+		"q17": {
+			"qText": "What letters represent Gold on the Periodic Table?",
+			"a1": "Ge",
+			"a2": "Os",
+			"a3": "Au",
+			"a4": "Sg",
+			"rightA": "Au",
+			"answerPhrase": "Au is used to represent Gold, based on the Latin word 'aurum'.",
+			"category": "science"
+		},
+
+		"q17": {
+			"qText": "Who developed the Theory of Relativity?",
+			"a1": "Albert Einstein",
+			"a2": "Stephen Hawking",
+			"a3": "Isaac Newton",
+			"a4": "Copernicus",
+			"rightA": "Albert Einstein",
+			"answerPhrase": "Einstein's theory shows that the speed of light in a vacuum is independent of the motion of all observers.",
+			"category": "science"
+		},
+
+
 	}
 
 	var gameQPool = Object.keys(qBox);
@@ -215,8 +239,10 @@ $(function(){
 		'assets/images/history.jpg',
 		'assets/images/gaming.jpg', 
 		'assets/images/geography.jpg',
+		'assets/images/science.jpg',
 		'assets/images/1st.png',
-		'assets/images/2nd.png']);
+		'assets/images/2nd.png'
+		]);
 
 	function shuffleQs(){
 		var currentIndex = gameQPool.length, tempValue, randomIndex;
