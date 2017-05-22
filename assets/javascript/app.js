@@ -197,8 +197,6 @@ $(function(){
 			"answerPhrase": "Titanic tied Ben-Hur for most Academy Awards won with 11 wins.",
 			"category": "film"
 		}
-
-
 	}
 
 	var gameQPool = Object.keys(qBox);
@@ -216,7 +214,9 @@ $(function(){
 		'assets/images/sports.jpg', 
 		'assets/images/history.jpg',
 		'assets/images/gaming.jpg', 
-		'assets/images/geography.jpg']);
+		'assets/images/geography.jpg',
+		'assets/images/1st.png',
+		'assets/images/2nd.png']);
 
 	function shuffleQs(){
 		var currentIndex = gameQPool.length, tempValue, randomIndex;
