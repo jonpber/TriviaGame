@@ -326,7 +326,8 @@ $(function(){
 			textDiv2.addClass(endTextClass).text("Wrong: " + wrongNum).appendTo($endBlock);
 
 			if (correctNum >= gameLength -1){
-				$($endBlock).append("<img class='endImg' src='assets/images/1st.png'>");
+				var endImg = $("<img class='endImg' src='assets/images/1st.png'>");
+				endImg.hide().appendTo($endBlock).fadeIn();
 				var textDiv3 = $("<div>");
 				textDiv3.addClass(endTextClass).text("You're a superstar!").appendTo($endBlock);
 				victorySound.play();
@@ -334,7 +335,8 @@ $(function(){
 			}
 
 			else if (correctNum >= gameLength -3){
-				$($endBlock).append("<img class='endImg' src='assets/images/2nd.png'>");
+				var endImg = $("<img class='endImg' src='assets/images/2nd.png'>");
+				endImg.hide().appendTo($endBlock).fadeIn();
 				var textDiv3 = $("<div>");
 				textDiv3.addClass(endTextClass).text("Well done.").appendTo($endBlock);
 				smallVictorySound.play();
