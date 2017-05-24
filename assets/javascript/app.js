@@ -245,7 +245,9 @@ $(function(){
 		]);
 
 	function shuffleQs(){
-		var currentIndex = gameQPool.length, tempValue, randomIndex;
+		var currentIndex = gameQPool.length; 
+		var tempValue; 
+		var randomIndex;
 
 		while (currentIndex !== 0){
 			randomIndex = Math.floor(Math.random() * currentIndex);
@@ -278,7 +280,7 @@ $(function(){
 		newRound(qBox[gameQPool[roundNum]]);
 	}
 
-	$($optionSlot).on("click", ".option", function(){
+	$optionSlot.on("click", ".option", function(){
 		var $this = $(this);
 		var $parent = $this.parent();
 		if (click){
