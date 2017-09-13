@@ -6,6 +6,9 @@ Users click the start button to begin the game and are provided with multiple ro
 
 # Technology Used
 -HTML
+
 -CSS
+
 -Javascript
+
 -jQuery
